@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Doe Sangue, Doe Vida — Uma doação salva até 4 vidas</title>
+<meta name="description" content="Descubra por que doar sangue importa, quem pode doar e curiosidades para toda a família.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --crimson:#C81E3A;
+    --coral:#FF6B5B;
+    --marigold:#FFC857;
+    --ink:#1B2A4A;
+    --cream:#FFF6EE;
+    --leaf:#2E7D5B;
+    --cream-2:#FFEFDF;
+    --max: 1120px;
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{
+    margin:0;
+    background:var(--cream);
+    color:var(--ink);
+    font-family:'Nunito',sans-serif;
+    font-size:17px;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+  h1,h2,h3,.display{
+    font-family:'Fredoka',sans-serif;
+    font-weight:600;
+    line-height:1.12;
+    margin:0;
+    color:var(--ink);
+  }
+  .mono{font-family:'Space Mono',monospace;}
+  a{color:inherit;}
+  img,svg{display:block;max-width:100%;}
+  .wrap{max-width:var(--max); margin:0 auto; padding:0 24px;}
+  :focus-visible{outline:3px solid var(--leaf); outline-offset:3px;}
+
+  /* ---------- HEADER ---------- */
+  header{
+    position:sticky; top:0; z-index:50;
+    background:rgba(255,246,238,0.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid rgba(27,42,74,0.08);
+  }
+  .nav{display:flex; align-items:center; justify-content:space-between; padding:14px 24px; max-width:var(--max); margin:0 auto;}
+  .logo{display:flex; align-items:center; gap:10px; font-family:'Fredoka'; font-weight:700; font-size:1.15rem; text-decoration:none;}
+  .logo svg{width:34px; height:34px;}
+  nav.links{display:flex; gap:22px; font-weight:700; font-size:0.92rem;}
+  nav.links a{text-decoration:none; opacity:0.75; transition:opacity .15s;}
+  nav.links a:hover{opacity:1;}
+  .nav-cta{
+    background:var(--crimson); color:#fff; padding:10px 18px; border-radius:100px;
+    font-weight:700; font-size:0.88rem; text-decoration:none; white-space:nowrap;
+  }
+  .menu-toggle{display:none;}
+  @media (max-width: 780px){
+    nav.links{position:fixed; inset:64px 0 auto 0; background:var(--cream); flex-direction:column; padding:18px 24px; gap:14px; transform:translateY(-130%); transition:transform .25s ease; border-bottom:1px solid rgba(27,42,74,.08);}
+    nav.links.open{transform:translateY(0);}
+    .menu-toggle{display:block; background:none; border:none; cursor:pointer; padding:6px;}
+    .menu-toggle svg{width:26px;height:26px;}
+    .nav-cta{display:none;}
+  }
+
+  /* ---------- HEARTBEAT DIVIDER (signature element) ---------- */
+  .pulse-divider{width:100%; height:46px; overflow:hidden;}
+  .pulse-divider svg{width:100%; height:100%;}
+  .pulse-line{
+    fill:none; stroke:var(--crimson); stroke-width:2.5; stroke-linecap:round; stroke-linejoin:round;
+    stroke-dasharray:1400; stroke-dashoffset:1400;
+    animation:draw 3.2s ease-in-out forwards;
+  }
+  @keyframes draw{ to{stroke-dashoffset:0;} }
+  @media (prefers-reduced-motion: reduce){
+    .pulse-line{animation:none; stroke-dashoffset:0;}
+  }
+
+  /* ---------- HERO ---------- */
+  .hero{padding:56px 0 20px;}
+  .hero-grid{display:grid; grid-template-columns:1.1fr 0.9fr; gap:40px; align-items:center;}
+  .eyebrow{
+    display:inline-flex; align-items:center; gap:8px; background:var(--cream-2); color:var(--crimson);
+    font-family:'Space Mono'; font-size:0.75rem; letter-spacing:.04em; text-transform:uppercase;
+    padding:6px 12px; border-radius:100px; margin-bottom:18px; font-weight:700;
+  }
+  .eyebrow .dot{width:7px;height:7px;background:var(--crimson);border-radius:50%; animation:blink 1.6s ease-in-out infinite;}
+  @keyframes blink{0%,100%{opacity:1;}50%{opacity:.25;}}
+  .hero h1{font-size:clamp(2.1rem, 4.6vw, 3.4rem); letter-spacing:-0.01em;}
+  .hero h1 em{font-style:normal; color:var(--crimson);}
+  .hero p.lead{font-size:1.1rem; margin-top:18px; max-width:46ch; opacity:0.85;}
+  .hero-ctas{display:flex; gap:14px; margin-top:28px; flex-wrap:wrap;}
+  .btn-primary{
+    background:var(--crimson); color:#fff; padding:14px 26px; border-radius:100px; text-decoration:none;
+    font-weight:700; font-size:0.98rem; box-shadow:0 8px 20px -6px rgba(200,30,58,0.5); transition:transform .15s;
+    display:inline-flex; align-items:center; gap:8px;
+  }
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-secondary{
+    background:transparent; color:var(--ink); padding:14px 22px; border-radius:100px; text-decoration:none;
+    font-weight:700; font-size:0.98rem; border:2px solid rgba(27,42,74,0.18); transition:border-color .15s;
+  }
+  .btn-secondary:hover{border-color:var(--ink);}
+  .mascot-wrap{position:relative; display:flex; justify-content:center;}
+  .mascot-wrap svg{width:100%; max-width:340px; animation:bob 3.4s ease-in-out infinite;}
+  @keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-10px);}}
+  @media (prefers-reduced-motion: reduce){ .mascot-wrap svg{animation:none;} }
+  @media (max-width: 860px){
+    .hero-grid{grid-template-columns:1fr; text-align:center;}
+    .hero p.lead{margin-left:auto; margin-right:auto;}
+    .hero-ctas{justify-content:center;}
+    .mascot-wrap{order:-1;}
+  }
+
+  section{padding:64px 0;}
+  .section-head{max-width:640px; margin:0 auto 40px; text-align:center;}
+  .section-head .eyebrow{margin-bottom:14px;}
+  .section-head h2{font-size:clamp(1.6rem,3.2vw,2.3rem);}
+  .section-head p{opacity:0.78; margin-top:12px; font-size:1.02rem;}
+
+  /* ---------- STATS ---------- */
+  .stats-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .stat-card{
+    background:#fff; border-radius:20px; padding:26px 22px; border:1px solid rgba(27,42,74,0.06);
+    box-shadow:0 10px 30px -20px rgba(27,42,74,0.35);
+  }
+  .stat-card .num{font-family:'Space Mono'; font-weight:700; font-size:2.1rem; color:var(--crimson);}
+  .stat-card .label{font-weight:700; margin-top:6px; font-size:0.95rem;}
+  .stat-card .note{font-size:0.85rem; opacity:0.68; margin-top:6px;}
+  @media (max-width:860px){ .stats-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .stats-grid{grid-template-columns:1fr;} }
+  .sources-note{text-align:center; font-size:0.82rem; opacity:0.55; margin-top:24px;}
+
+  /* ---------- COMPONENTS OF BLOOD ---------- */
+  .components-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .comp-card{background:var(--ink); color:#fff; border-radius:20px; padding:24px 20px;}
+  .comp-card svg{width:46px;height:46px; margin-bottom:14px;}
+  .comp-card h3{color:#fff; font-size:1.05rem;}
+  .comp-card p{font-size:0.88rem; opacity:0.78; margin-top:8px;}
+  @media (max-width:860px){ .components-grid{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .components-grid{grid-template-columns:1fr;} }
+
+  /* ---------- CRITERIA ---------- */
+  .criteria-grid{display:grid; grid-template-columns:repeat(4,1fr); gap:18px;}
+  .crit-card{background:#fff; border-radius:18px; padding:22px; text-align:center; border:1px solid rgba(27,42,74,.06);}
+  .crit-card svg{width:40px; height:40px; margin:0 auto 12px;}
+  .crit-card .big{font-family:'Space Mono'; font-weight:700; font-size:1.5rem; color:var(--leaf);}
+  .crit-card .small{font-size:0.88rem; opacity:0.75; margin-top:4px;}
+  @media (max-width:860px){ .criteria-grid{grid-template-columns:repeat(2,1fr);} }
+
+  /* ---------- STEPS ---------- */
+  .steps{display:grid; grid-template-columns:repeat(5,1fr); gap:14px; counter-reset:step;}
+  .step{background:#fff; border-radius:16px; padding:20px 16px; border:1px solid rgba(27,42,74,.06); position:relative;}
+  .step .n{
+    font-family:'Space Mono'; font-weight:700; color:var(--crimson); font-size:0.85rem;
+    background:var(--cream-2); width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    margin-bottom:12px;
+  }
+  .step h3{font-size:0.98rem;}
+  .step p{font-size:0.85rem; opacity:0.72; margin-top:6px;}
+  @media (max-width:900px){ .steps{grid-template-columns:repeat(2,1fr);} }
+  @media (max-width:520px){ .steps{grid-template-columns:1fr;} }
+
+  /* ---------- MYTHS ---------- */
+  .myths{display:grid; gap:12px; max-width:760px; margin:0 auto;}
+  details.myth{background:#fff; border-radius:14px; border:1px solid rgba(27,42,74,.08); padding:4px 20px;}
+  details.myth summary{
+    cursor:pointer; padding:16px 0; font-weight:700; list-style:none; display:flex; justify-content:space-between; align-items:center; gap:12px;
+  }
+  details.myth summary::-webkit-details-marker{display:none;}
+  details.myth summary .tag{
+    font-family:'Space Mono'; font-size:0.7rem; padding:4px 10px; border-radius:100px; white-space:nowrap;
+    background:var(--cream-2); color:var(--crimson); font-weight:700;
+  }
+  details.myth[open] summary .tag{background:var(--leaf); color:#fff;}
+  details.myth p{margin:0 0 18px; opacity:0.8; font-size:0.95rem;}
+  .plus{font-size:1.3rem; color:var(--ink); opacity:.4; transition:transform .2s;}
+  details.myth[open] .plus{transform:rotate(45deg);}
+
+  /* ---------- KIDS CORNER ---------- */
+  .kids{background:var(--marigold); border-radius:28px; padding:44px 34px; position:relative; overflow:hidden;}
+  .kids-grid{display:grid; grid-template-columns:0.85fr 1.15fr; gap:36px; align-items:center; position:relative; z-index:1;}
+  .kids h2{font-size:clamp(1.5rem,3vw,2.1rem);}
+  .kids .eyebrow{background:rgba(27,42,74,0.1); color:var(--ink);}
+  .kids-facts{display:grid; gap:12px; margin-top:20px;}
+  .kids-fact{
+    background:rgba(255,255,255,0.55); border-radius:14px; padding:14px 16px; display:flex; gap:12px; align-items:flex-start;
+    font-weight:700; font-size:0.95rem;
+  }
+  .kids-fact svg{width:24px;height:24px; flex-shrink:0; margin-top:2px;}
+  .kid-mascot svg{width:100%; max-width:280px; margin:0 auto;}
+  @media (max-width:860px){
+    .kids-grid{grid-template-columns:1fr;}
+    .kid-mascot{order:-1;}
+    .kids{padding:32px 22px;}
+  }
+
+  /* ---------- CTA + QR ---------- */
+  .cta-section{background:var(--ink); border-radius:28px; overflow:hidden;}
+  .cta-grid{display:grid; grid-template-columns:1.1fr 0.9fr; align-items:center;}
+  .cta-text{padding:48px 40px; color:#fff;}
+  .cta-text h2{color:#fff; font-size:clamp(1.5rem,3vw,2.1rem);}
+  .cta-text p{opacity:0.75; margin-top:14px; max-width:44ch;}
+  .cta-text .btn-primary{margin-top:24px; background:var(--marigold); color:var(--ink);}
+  .qr-panel{
+    background:var(--cream); padding:40px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; text-align:center;
+    height:100%;
+  }
+  #qrcode{background:#fff; padding:14px; border-radius:16px; box-shadow:0 12px 30px -14px rgba(0,0,0,.35);}
+  .qr-panel .qr-label{font-family:'Space Mono'; font-size:0.78rem; opacity:0.65; max-width:26ch;}
+  @media (max-width:860px){ .cta-grid{grid-template-columns:1fr;} .cta-text{padding:34px 26px;} .qr-panel{padding:28px;} }
+
+  footer{padding:40px 0 60px; text-align:center;}
+  footer .foot-links{display:flex; gap:18px; justify-content:center; flex-wrap:wrap; font-size:0.85rem; font-weight:700; margin-bottom:14px;}
+  footer .foot-links a{text-decoration:none; opacity:0.7;}
+  footer p{font-size:0.8rem; opacity:0.5; margin:4px 0;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="logo">
+      <svg viewBox="0 0 100 100"><path fill="#C81E3A" d="M50 6C50 6 18 48 18 68a32 32 0 0 0 64 0C82 48 50 6 50 6Z"/><circle cx="38" cy="66" r="7" fill="#fff" opacity="0.55"/></svg>
+      Doe Sangue, Doe Vida
+    </a>
+    <nav class="links" id="navLinks">
+      <a href="#por-que">Por que importa</a>
+      <a href="#quem-pode">Quem pode doar</a>
+      <a href="#como-funciona">Como funciona</a>
+      <a href="#mitos">Mitos e verdades</a>
+      <a href="#curiosidades">Curiosidades</a>
+    </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu" aria-expanded="false">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" stroke-width="2.4" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+    </button>
+    <a class="nav-cta" href="https://www.gov.br/saude/pt-br/campanhas-da-saude/2025/doacao-de-sangue" target="_blank" rel="noopener">Encontrar hemocentro</a>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div>
+        <span class="eyebrow"><span class="dot"></span>15 minutos que mudam uma vida</span>
+        <h1>Uma doação de sangue pode salvar <em>até 4 vidas</em>.</h1>
+        <p class="lead">O sangue não pode ser fabricado em laboratório — ele só existe graças a quem doa. Descubra por que isso importa tanto, quem pode doar e como o processo funciona, em uma linguagem para toda a família.</p>
+        <div class="hero-ctas">
+          <a class="btn-primary" href="https://www.gov.br/saude/pt-br/campanhas-da-saude/2025/doacao-de-sangue" target="_blank" rel="noopener">
+            Quero doar sangue
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <a class="btn-secondary" href="#por-que">Ver os dados oficiais</a>
+        </div>
+      </div>
+      <div class="mascot-wrap">
+        <svg viewBox="0 0 300 340" aria-hidden="true">
+          <ellipse cx="150" cy="320" rx="90" ry="14" fill="#1B2A4A" opacity="0.06"/>
+          <path d="M150 20C150 20 55 150 55 220a95 95 0 0 0 190 0C245 150 150 20 150 20Z" fill="#C81E3A"/>
+          <path d="M150 20C150 20 55 150 55 220a95 95 0 0 0 190 0C245 150 150 20 150 20Z" fill="none" stroke="#8f1428" stroke-width="0" />
+          <ellipse cx="110" cy="200" rx="20" ry="30" fill="#FF6B5B" opacity="0.55"/>
+          <circle cx="120" cy="235" r="9" fill="#1B2A4A"/>
+          <circle cx="180" cy="235" r="9" fill="#1B2A4A"/>
+          <circle cx="123" cy="232" r="2.6" fill="#fff"/>
+          <circle cx="183" cy="232" r="2.6" fill="#fff"/>
+          <path d="M118 262c10 12 54 12 64 0" stroke="#1B2A4A" stroke-width="6" fill="none" stroke-linecap="round"/>
+          <path d="M95 215c6-10 16-14 22-8" stroke="#8f1428" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.5"/>
+          <path d="M205 215c-6-10-16-14-22-8" stroke="#8f1428" stroke-width="5" fill="none" stroke-linecap="round" opacity="0.5"/>
+          <g transform="translate(150 268)">
+            <rect x="-16" y="-6" width="32" height="12" rx="6" fill="#FFC857"/>
+            <rect x="-4" y="-16" width="8" height="32" rx="4" fill="#FFC857"/>
+          </g>
+        </svg>
+      </div>
+    </div>
+  </section>
+
+  <div class="pulse-divider"><svg viewBox="0 0 1200 46" preserveAspectRatio="none"><path class="pulse-line" d="M0 23 L260 23 L300 6 L330 40 L360 23 L1200 23"/></svg></div>
+
+  <!-- POR QUE IMPORTA -->
+  <section id="por-que">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Dados oficiais</span>
+        <h2>Por que a doação de sangue importa</h2>
+        <p>Números do Ministério da Saúde e da Organização Mundial da Saúde (OMS) mostram por que cada doação faz diferença.</p>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-card">
+          <div class="num">3,31M</div>
+          <div class="label">bolsas coletadas em 2024</div>
+          <div class="note">no Brasil inteiro, segundo o Ministério da Saúde</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">1,6%</div>
+          <div class="label">da população brasileira doa</div>
+          <div class="note">a OMS recomenda uma faixa maior para manter os estoques seguros</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">×4</div>
+          <div class="label">vidas por doação</div>
+          <div class="note">o sangue é separado em diferentes partes que ajudam pessoas diferentes</div>
+        </div>
+        <div class="stat-card">
+          <div class="num">38%</div>
+          <div class="label">só doam por reposição</div>
+          <div class="note">ou seja, apenas quando um amigo ou parente precisa — e não retornam depois</div>
+        </div>
+      </div>
+      <p class="sources-note">Fontes: Ministério da Saúde (gov.br/saude) e Organização Mundial da Saúde — dados consolidados de 2024/2025.</p>
+    </div>
+  </section>
+
+  <!-- COMPONENTES DO SANGUE -->
+  <section style="background:var(--ink);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow" style="background:rgba(255,255,255,0.1); color:#FFC857;">De onde vem a ajuda</span>
+        <h2 style="color:#fff;">Uma bolsa de sangue vira 4 tipos de ajuda</h2>
+        <p style="color:#fff; opacity:0.65;">O sangue doado não é usado inteiro — ele é dividido em partes, e cada uma trata um problema diferente.</p>
+      </div>
+      <div class="components-grid">
+        <div class="comp-card">
+          <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="18" fill="#C81E3A"/><circle cx="18" cy="20" r="4" fill="#fff" opacity="0.35"/></svg>
+          <h3>Hemácias</h3>
+          <p>Carregam oxigênio pelo corpo. Usadas em cirurgias e no tratamento de anemias.</p>
+        </div>
+        <div class="comp-card">
+          <svg viewBox="0 0 48 48" fill="none"><circle cx="16" cy="18" r="6" fill="#FFC857"/><circle cx="30" cy="14" r="4" fill="#FFC857"/><circle cx="30" cy="30" r="5" fill="#FFC857"/><circle cx="14" cy="32" r="4" fill="#FFC857"/></svg>
+          <h3>Plaquetas</h3>
+          <p>Ajudam a estancar sangramentos. Essenciais em tratamentos de câncer.</p>
+        </div>
+        <div class="comp-card">
+          <svg viewBox="0 0 48 48" fill="none"><path d="M24 6c8 8 14 16 14 24a14 14 0 0 1-28 0c0-8 6-16 14-24Z" fill="#FF6B5B"/></svg>
+          <h3>Plasma</h3>
+          <p>A parte líquida do sangue. Usado em queimaduras e emergências graves.</p>
+        </div>
+        <div class="comp-card">
+          <svg viewBox="0 0 48 48" fill="none"><rect x="10" y="10" width="28" height="28" rx="8" fill="#2E7D5B"/><path d="M18 24h12M24 18v12" stroke="#fff" stroke-width="3" stroke-linecap="round"/></svg>
+          <h3>Crioprecipitado</h3>
+          <p>Ajuda pessoas com problemas de coagulação, como a hemofilia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUEM PODE DOAR -->
+  <section id="quem-pode">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Requisitos</span>
+        <h2>Quem pode doar sangue</h2>
+        <p>Os critérios existem para proteger tanto quem doa quanto quem recebe.</p>
+      </div>
+      <div class="criteria-grid">
+        <div class="crit-card">
+          <svg viewBox="0 0 40 40" fill="none"><circle cx="20" cy="20" r="16" stroke="#2E7D5B" stroke-width="3"/><path d="M20 11v9l6 4" stroke="#2E7D5B" stroke-width="3" stroke-linecap="round"/></svg>
+          <div class="big">16–69</div>
+          <div class="small">anos. Entre 16 e 18, é preciso autorização dos responsáveis.</div>
+        </div>
+        <div class="crit-card">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M20 6c5 6 10 12 10 18a10 10 0 0 1-20 0c0-6 5-12 10-18Z" stroke="#2E7D5B" stroke-width="3"/></svg>
+          <div class="big">50kg+</div>
+          <div class="small">peso mínimo exigido para doar com segurança.</div>
+        </div>
+        <div class="crit-card">
+          <svg viewBox="0 0 40 40" fill="none"><path d="M8 22a12 12 0 0 0 22 6 12 12 0 0 1-14-18 12 12 0 0 0-8 12Z" stroke="#2E7D5B" stroke-width="3" stroke-linejoin="round"/></svg>
+          <div class="big">6h</div>
+          <div class="small">de sono nas últimas 24 horas antes da doação.</div>
+        </div>
+        <div class="crit-card">
+          <svg viewBox="0 0 40 40" fill="none"><rect x="10" y="7" width="20" height="26" rx="3" stroke="#2E7D5B" stroke-width="3"/><path d="M15 15h10M15 21h10M15 27h6" stroke="#2E7D5B" stroke-width="2.5" stroke-linecap="round"/></svg>
+          <div class="big">4x / 3x</div>
+          <div class="small">por ano: homens até 4 vezes, mulheres até 3 vezes.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="pulse-divider"><svg viewBox="0 0 1200 46" preserveAspectRatio="none"><path class="pulse-line" d="M0 23 L500 23 L540 4 L570 42 L600 23 L1200 23"/></svg></div>
+
+  <!-- COMO FUNCIONA -->
+  <section id="como-funciona">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">O passo a passo</span>
+        <h2>Como funciona o dia da doação</h2>
+        <p>O processo inteiro leva cerca de 40 a 50 minutos, e a coleta em si dura só de 8 a 10 minutos.</p>
+      </div>
+      <div class="steps">
+        <div class="step"><div class="n">1</div><h3>Cadastro</h3><p>Você se identifica e preenche um formulário rápido.</p></div>
+        <div class="step"><div class="n">2</div><h3>Triagem</h3><p>Uma entrevista e um exame simples confirmam se você está apto.</p></div>
+        <div class="step"><div class="n">3</div><h3>Coleta</h3><p>Cerca de 450ml são coletados, em 8 a 10 minutos.</p></div>
+        <div class="step"><div class="n">4</div><h3>Lanche</h3><p>Você descansa e come algo antes de ir embora.</p></div>
+        <div class="step"><div class="n">5</div><h3>Ajuda</h3><p>Seu sangue é testado, separado e enviado a quem precisa.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MITOS -->
+  <section id="mitos" style="background:var(--cream-2);">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="eyebrow">Sem enrolação</span>
+        <h2>Mitos e verdades sobre doar sangue</h2>
+        <p>Muita gente deixa de doar por causa de ideias que não são verdadeiras. Vamos esclarecer:</p>
+      </div>
+      <div class="myths">
+        <details class="myth">
+          <summary>Doar sangue dói muito <span class="plus">+</span></summary>
+          <p><strong>Mito.</strong> A agulhada é rápida e o desconforto é parecido com o de uma picada de inseto. A maior parte do tempo é só relaxar na cadeira.</p>
+        </details>
+        <details class="myth">
+          <summary>Posso pegar uma doença ao doar <span class="plus">+</span></summary>
+          <p><strong>Mito.</strong> Todo material usado — agulha, seringa e bolsa — é novo, descartável e estéril, usado uma única vez e depois descartado.</p>
+        </details>
+        <details class="myth">
+          <summary>Quem tem tatuagem não pode doar <span class="plus">+</span></summary>
+          <p><strong>Depende.</strong> É possível doar após um período de espera contado a partir da data da tatuagem ou piercing, geralmente alguns meses.</p>
+        </details>
+        <details class="myth">
+          <summary>Doar sangue enfraquece o corpo <span class="plus">+</span></summary>
+          <p><strong>Mito.</strong> O volume de líquido é reposto em poucas horas, e as células do sangue são renovadas ao longo de algumas semanas.</p>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <div class="pulse-divider"><svg viewBox="0 0 1200 46" preserveAspectRatio="none"><path class="pulse-line" d="M0 23 L700 23 L735 8 L765 38 L800 23 L1200 23"/></svg></div>
+
+  <!-- CURIOSIDADES / KIDS CORNER -->
+  <section id="curiosidades">
+    <div class="wrap">
+      <div class="kids">
+        <div class="kids-grid">
+          <div class="kid-mascot">
+            <svg viewBox="0 0 260 300" aria-hidden="true">
+              <path d="M130 10C130 10 55 120 55 175a75 75 0 0 0 150 0C205 120 130 10 130 10Z" fill="#fff"/>
+              <circle cx="105" cy="185" r="8" fill="#1B2A4A"/>
+              <circle cx="155" cy="185" r="8" fill="#1B2A4A"/>
+              <path d="M100 210c10 14 50 14 60 0" stroke="#1B2A4A" stroke-width="6" fill="none" stroke-linecap="round"/>
+              <circle cx="80" cy="170" r="10" fill="#FF6B5B" opacity="0.6"/>
+              <circle cx="180" cy="170" r="10" fill="#FF6B5B" opacity="0.6"/>
+              <path d="M40 60l14 14M40 74l14-14" stroke="#C81E3A" stroke-width="4" stroke-linecap="round"/>
+              <path d="M206 50l14 14M206 64l14-14" stroke="#C81E3A" stroke-width="4" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <div>
+            <span class="eyebrow">Cantinho da curiosidade</span>
+            <h2>Curiosidades sobre o sangue, para toda a família</h2>
+            <div class="kids-facts">
+              <div class="kids-fact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" stroke-width="2"><path d="M12 2c4 5 7 9 7 13a7 7 0 0 1-14 0c0-4 3-8 7-13Z"/></svg>
+                <span>Um corpo adulto tem cerca de 5 litros de sangue circulando o tempo todo.</span>
+              </div>
+              <div class="kids-fact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 3v18M3 12h18"/></svg>
+                <span>Existem 4 tipos principais de sangue: A, B, AB e O. Cada um tem um papel diferente.</span>
+              </div>
+              <div class="kids-fact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" stroke-width="2"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6c-2.5 4.5-9.5 9-9.5 9Z"/></svg>
+                <span>Quem tem sangue O- é chamado de "doador universal", porque pode ajudar em quase qualquer emergência.</span>
+              </div>
+              <div class="kids-fact">
+                <svg viewBox="0 0 24 24" fill="none" stroke="#1B2A4A" stroke-width="2"><path d="M3 12h4l2-7 4 14 2-7h6"/></svg>
+                <span>O coração bate cerca de 100 mil vezes por dia, bombeando esse sangue por todo o corpo.</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA + QR -->
+  <section>
+    <div class="wrap">
+      <div class="cta-section">
+        <div class="cta-grid">
+          <div class="cta-text">
+            <span class="eyebrow" style="background:rgba(255,255,255,0.1); color:#FFC857;">Sua vez</span>
+            <h2>Leve essa mensagem adiante</h2>
+            <p>Encontre o hemocentro mais próximo e agende sua doação, ou compartilhe este site com quem também pode ajudar.</p>
+            <a class="btn-primary" href="https://www.gov.br/saude/pt-br/campanhas-da-saude/2025/doacao-de-sangue" target="_blank" rel="noopener">Encontrar um hemocentro</a>
+          </div>
+          <div class="qr-panel">
+            <div id="qrcode"></div>
+            <span class="qr-label">Aponte a câmera para acessar este site pelo celular</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-links">
+      <a href="https://www.gov.br/saude/pt-br/campanhas-da-saude/2025/doacao-de-sangue" target="_blank" rel="noopener">gov.br/saude — Doação de Sangue</a>
+      <a href="https://www.who.int/" target="_blank" rel="noopener">who.int — OMS</a>
+    </div>
+    <p>Conteúdo educativo baseado em dados públicos do Ministério da Saúde e da Organização Mundial da Saúde (2024–2026). Consulte sempre o hemocentro da sua região para critérios atualizados.</p>
+    <p>Feito com ♥ para incentivar a doação de sangue.</p>
+  </div>
+</footer>
+
+<script>
+  // mobile menu
+  const toggle = document.getElementById('menuToggle');
+  const links = document.getElementById('navLinks');
+  toggle?.addEventListener('click', () => {
+    const open = links.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', open);
+  });
+  links?.querySelectorAll('a').forEach(a => a.addEventListener('click', () => links.classList.remove('open')));
+
+  // QR code pointing to the page's own URL, generated dynamically
+  try {
+    new QRCode(document.getElementById('qrcode'), {
+      text: window.location.href,
+      width: 148,
+      height: 148,
+      colorDark: "#1B2A4A",
+      colorLight: "#ffffff",
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  } catch (e) {
+    document.getElementById('qrcode').innerText = 'QR indisponível offline';
+  }
+</script>
+
+</body>
+</html>
